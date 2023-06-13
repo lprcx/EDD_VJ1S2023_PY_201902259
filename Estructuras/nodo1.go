@@ -1,9 +1,9 @@
 package estructuras
 
-type Nodo struct {
+/*type Nodo struct {
 	valor     int
 	siguiente *Nodo
-}
+}*/
 
 type Nodo2 struct {
 	empleado  *Empleado
@@ -11,9 +11,14 @@ type Nodo2 struct {
 	anterior  *Nodo2
 }
 
-type nodoLista struct {
+type NodoLista struct {
 	empleado  *Empleado
-	siguiente *nodoLista
+	siguiente *NodoLista
+}
+
+type NodoCircular struct {
+	cliente   *Cliente
+	siguiente *NodoCircular
 }
 
 type NodoCola struct {

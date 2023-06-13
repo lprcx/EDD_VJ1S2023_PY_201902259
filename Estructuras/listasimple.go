@@ -2,34 +2,35 @@ package estructuras
 
 import "fmt"
 
-type Lista struct {
-	Inicio   *Nodo
+type ListaEmpleados struct {
+	Inicio   *NodoLista
 	Longitud int
 }
 
-func (l *Lista) estaVacia() bool {
+func (l *ListaEmpleados) estaVacia() bool {
 	return l.Longitud == 0
 }
 
-func (l *Lista) Insertar(numero int) {
+func (l *ListaEmpleados) Insertar(id string, nombre string, cargo string, password string) {
+	nuevoEmpleado := &Empleado{Id: id, Nombre: nombre, Cargo: cargo, Password: password}
 	if l.estaVacia() {
-		l.Inicio = &Nodo{valor: numero, siguiente: nil}
+		l.Inicio = &NodoLista{empleado: nuevoEmpleado, siguiente: nil}
 		l.Longitud++
 	} else {
 		aux := l.Inicio
 		for aux.siguiente != nil {
 			aux = aux.siguiente
 		}
-		aux.siguiente = &Nodo{valor: numero, siguiente: nil}
+		aux.siguiente = &NodoLista{empleado: nuevoEmpleado, siguiente: nil}
 		l.Longitud++
 	}
 }
 
-func (l *Lista) Mostrar() {
+func (l *ListaEmpleados) Mostrar() {
 	aux := l.Inicio
 
 	for aux != nil {
-		fmt.Println(aux.valor)
+		fmt.Println(aux.empleado.Id, aux.empleado.Nombre, aux.empleado.Cargo, aux.empleado.Password)
 		aux = aux.siguiente
 	}
 }

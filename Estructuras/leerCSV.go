@@ -7,7 +7,7 @@ import (
 	"os"
 )
 
-func (colaAux *Cola) LeerArchivo(ruta string) {
+/*func (colaAux *Cola) LeerArchivo(ruta string) {
 	file, err := os.Open(ruta)
 	if err != nil {
 		fmt.Println("No pude abrir el archivo")
@@ -33,10 +33,10 @@ func (colaAux *Cola) LeerArchivo(ruta string) {
 		}
 		colaAux.Encolar(linea[0], linea[1])
 	}
-}
+}*/
 
 /*func (l *ListaCircular) LeerArchivo(ruta string)*/
-func LeerArchivo(ruta string) []Empleado {
+func (l *ListaEmpleados) LeerArchivo(ruta string) []Empleado {
 	var lista []Empleado
 	file, err := os.Open(ruta)
 	if err != nil {

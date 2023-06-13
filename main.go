@@ -2,7 +2,10 @@ package main
 
 import (
 	//estructuras "EDD_VJ1S2023_PY_201902259/Estructuras"
+	"encoding/csv"
 	"fmt"
+	"io"
+	"os"
 )
 
 var (
@@ -23,7 +26,7 @@ func main() {
 		fmt.Println("Elige una opción: ")
 		fmt.Scanln(&opcion1)
 		if opcion1 == 1 {
-			fmt.Println("Iniciar Sesión")
+			main2()
 		} else {
 			salir = true
 		}
@@ -38,9 +41,9 @@ func main2() {
 	fmt.Scanln(&id)
 	fmt.Println("Ingresa tu password")
 	fmt.Scanln(&password)
-	if id == "admin" && password == "admin" {
+	if id == "ADMIN_201902259" && password == "Admin" {
 		fmt.Println("Bienvenido Administrador :)")
-		//menu_admin()
+		menu_admin()
 	} else if id != "ADMIN_201902259" && password != "Admin" {
 		//verificacion()
 	} else {
@@ -65,7 +68,11 @@ func menu_admin() {
 		fmt.Scanln(&opcion)
 		switch opcion {
 		case 1:
-
+			var ruta string
+			fmt.Println("Ingrese la ruta del archivo")
+			fmt.Println("")
+			fmt.Scanln(&ruta)
+			LeerArchivo(ruta)
 		case 2:
 
 		case 3:
@@ -84,4 +91,36 @@ func menu_admin() {
 
 	}
 
+}
+
+func LeerArchivo(ruta string) {
+	file, err := os.Open(ruta)
+	if err != nil {
+		fmt.Println("Error al abrir el archivo")
+		return
+	}
+	defer file.Close()
+
+	leer := csv.NewReader(file)
+	leer.Comma = ','
+	//leer.FieldsPerRecord = -1
+
+	encabezado, err := leer.Read()
+	if err != nil {
+		panic(err)
+	}
+	fmt.Println("Se ha cargado el archivo", encabezado)
+
+	for {
+		linea, err := leer.Read()
+		if err == io.EOF {
+			break
+		}
+		if err != nil {
+			fmt.Println("No se pudo leer la linea")
+			break
+		}
+		//cola.Encolar(strings.TrimSpace(linea[1]), "", strings.TrimSpace(linea[0]), strings.TrimSpace(linea[2]))
+		fmt.Println("nombre: ", linea[1]+" Cargo"+linea[2], " id: ", linea[0])
+	}
 }
