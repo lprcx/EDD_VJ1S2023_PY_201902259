@@ -2,6 +2,7 @@ package estructuras
 
 import (
 	"fmt"
+	"math/rand"
 	"strconv"
 )
 
@@ -11,13 +12,13 @@ type Cola struct {
 }
 
 func (c *Cola) Encolar(id string, nombre string) {
-	nuevoEmpleado := &Empleado{Id: id, Nombre: nombre}
+	nuevoCliente := &Cliente{Id: id, Nombre: nombre}
 	if c.Longitud == 0 {
-		nuevoNodo := &NodoCola{nuevoEmpleado, nil}
+		nuevoNodo := &NodoCola{nuevoCliente, nil}
 		c.Primero = nuevoNodo
 		c.Longitud++
 	} else {
-		nuevoNodo := &NodoCola{nuevoEmpleado, nil}
+		nuevoNodo := &NodoCola{nuevoCliente, nil}
 		aux := c.Primero
 		for aux.Siguiente != nil {
 			aux = aux.Siguiente
@@ -29,10 +30,42 @@ func (c *Cola) Encolar(id string, nombre string) {
 
 func (c *Cola) Descolar() {
 	if c.Longitud == 0 {
-		fmt.Println("No hay alumnos pendientes en la cola")
+		fmt.Println("No hay clientes en la cola")
 	} else {
 		c.Primero = c.Primero.Siguiente
 		c.Longitud--
+	}
+}
+
+func (c *Cola) RecorrerCola(id string, nombre string) {
+	if c.Longitud == 0 {
+		fmt.Println("No hay clientes en la cola")
+	} else {
+		aux := c.Primero
+		for i := 0; i < c.Longitud; i++ {
+			var nuevoid int
+			_ = nuevoid
+			if id == "X" {
+				x, err := strconv.Atoi(aux.cliente.Id)
+				if err != nil {
+					fmt.Println("Error", err)
+					return
+				}
+				nuevoid = x
+				nuevoid = rand.Intn(9999)
+				id = strconv.Itoa(nuevoid)
+			}
+			fmt.Println("Nombre: ", aux.cliente.Nombre, " Carnet: ", aux.cliente.Id)
+			aux = aux.Siguiente
+		}
+	}
+}
+
+func (c *Cola) Enlistar() *Cliente {
+	if c.Longitud == 0 {
+		return nil
+	} else {
+		return c.Primero.cliente
 	}
 }
 
@@ -46,7 +79,7 @@ func (c *Cola) Graficar() {
 	aux := c.Primero
 	contador := 0
 	for i := 0; i < c.Longitud; i++ {
-		texto = texto + "nodo" + strconv.Itoa(i) + "[label=\"{Nombre: " + aux.Empleado.Nombre + ", Carnet: " + aux.Empleado.Id + "|}\"];\n"
+		texto = texto + "nodo" + strconv.Itoa(i) + "[label=\"{ID: " + aux.cliente.Id + ", Nombre: " + aux.cliente.Nombre + "|}\"];\n"
 		aux = aux.Siguiente
 	}
 	for i := 0; i < c.Longitud-1; i++ {

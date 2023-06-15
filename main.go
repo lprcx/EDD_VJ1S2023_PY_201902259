@@ -1,12 +1,18 @@
 package main
 
 import (
-	//estructuras "EDD_VJ1S2023_PY_201902259/Estructuras"
+	estructuras "EDD_VJ1S2023_PY_201902259/Estructuras"
 	"encoding/csv"
 	"fmt"
 	"io"
 	"os"
+	"strconv"
 )
+
+var ListaSimple = estructuras.ListaEmpleados{Inicio: nil, Longitud: 0}
+var ListaCircular = estructuras.ListaCircular{Inicio: nil, Longitud: 0}
+var ListaDoble = estructuras.ListaDoble{Inicio: nil, Longitud: 0}
+var Cola = estructuras.Cola{Primero: nil, Longitud: 0}
 
 var (
 	id       string
@@ -45,7 +51,7 @@ func main2() {
 		fmt.Println("Bienvenido Administrador :)")
 		menu_admin()
 	} else if id != "ADMIN_201902259" && password != "Admin" {
-		//verificacion()
+		verificacion()
 	} else {
 		fmt.Println("Datos Erróneos")
 	}
@@ -74,13 +80,28 @@ func menu_admin() {
 			fmt.Scanln(&ruta)
 			LeerArchivo(ruta)
 		case 2:
-
+			var ruta2 string
+			fmt.Println("Ingrese la ruta del archivo")
+			fmt.Println("")
+			fmt.Scanln(&ruta2)
+			LeerArchivoImagen(ruta2)
 		case 3:
-
+			var ruta3 string
+			fmt.Println("Ingrese la ruta del archivo")
+			fmt.Println("")
+			fmt.Scanln(&ruta3)
+			LeerArchivoCliente(ruta3)
 		case 4:
-
+			var ruta4 string
+			fmt.Println("Ingrese la ruta del archivo")
+			fmt.Println("")
+			fmt.Scanln(&ruta4)
+			LeerArchivoCola(ruta4)
 		case 5:
-
+			ListaDoble.Reporte()
+			ListaCircular.ReporteClientes()
+			ListaSimple.ReporteEmpleados()
+			Cola.Graficar()
 		case 6:
 			fmt.Println("Cerrando Aplicacion....")
 			main()
@@ -91,6 +112,29 @@ func menu_admin() {
 
 	}
 
+}
+
+func menu_empleado() {
+	opcion := 0
+	fmt.Println("-------------EDD Creative " + id + "-----------")
+	fmt.Println("1. Ver Imagenes Cargadas")
+	fmt.Println("2. Realizar Pedido")
+	fmt.Scanln(&opcion)
+	switch opcion {
+	case 1:
+	case 2:
+	default:
+
+	}
+}
+
+func RealizarPedido() {
+	fmt.Println("Ingrese el id del cliente: ")
+	fmt.Scanln(&id)
+	fmt.Println("Ingrese su id: ")
+	fmt.Scanln(&id)
+	fmt.Println("Ingrese el nombre de la imagen: ")
+	//fmt.Scanln(&imagen)
 }
 
 func LeerArchivo(ruta string) {
@@ -120,7 +164,135 @@ func LeerArchivo(ruta string) {
 			fmt.Println("No se pudo leer la linea")
 			break
 		}
-		//cola.Encolar(strings.TrimSpace(linea[1]), "", strings.TrimSpace(linea[0]), strings.TrimSpace(linea[2]))
-		fmt.Println("nombre: ", linea[1]+" Cargo"+linea[2], " id: ", linea[0])
+		ListaSimple.Insertar(linea[0], linea[1], linea[2], linea[3])
+		fmt.Println("nombre: ", linea[1]+" Cargo: "+linea[2], " id: ", linea[0])
 	}
+}
+
+func LeerArchivoImagen(ruta2 string) {
+	file, err := os.Open(ruta2)
+	if err != nil {
+		fmt.Println("Error al abrir el archivo")
+		return
+	}
+	defer file.Close()
+
+	leer := csv.NewReader(file)
+	leer.Comma = ','
+	//leer.FieldsPerRecord = -1
+
+	encabezado, err := leer.Read()
+	if err != nil {
+		panic(err)
+	}
+	fmt.Println("Se ha cargado el archivo", encabezado)
+
+	for {
+		linea, err := leer.Read()
+		if err == io.EOF {
+			break
+		}
+		if err != nil {
+			fmt.Println("No se pudo leer la linea")
+			break
+		}
+
+		str, err := strconv.Atoi(linea[1])
+		ListaDoble.Insertar(linea[0], str)
+		fmt.Println("Imagen: ", linea[0]+" Capas: "+linea[1])
+	}
+}
+
+func LeerArchivoCliente(ruta3 string) {
+	file, err := os.Open(ruta3)
+	if err != nil {
+		fmt.Println("Error al abrir el archivo")
+		return
+	}
+	defer file.Close()
+
+	leer := csv.NewReader(file)
+	leer.Comma = ','
+	//leer.FieldsPerRecord = -1
+
+	encabezado, err := leer.Read()
+	if err != nil {
+		panic(err)
+	}
+	fmt.Println("Se ha cargado el archivo", encabezado)
+
+	for {
+		linea, err := leer.Read()
+		if err == io.EOF {
+			break
+		}
+		if err != nil {
+			fmt.Println("No se pudo leer la linea")
+			break
+		}
+		ListaCircular.Insertar(linea[0], linea[1])
+		fmt.Println("Id: ", linea[0]+" Nombre: "+linea[1])
+	}
+}
+
+func LeerArchivoCola(ruta4 string) {
+	file, err := os.Open(ruta4)
+	if err != nil {
+		fmt.Println("Error al abrir el archivo")
+		return
+	}
+	defer file.Close()
+
+	leer := csv.NewReader(file)
+	leer.Comma = ','
+	//leer.FieldsPerRecord = -1
+
+	encabezado, err := leer.Read()
+	if err != nil {
+		panic(err)
+	}
+	fmt.Println("Se ha cargado el archivo", encabezado)
+
+	for {
+		linea, err := leer.Read()
+		if err == io.EOF {
+			break
+		}
+		if err != nil {
+			fmt.Println("No se pudo leer la linea")
+			break
+		}
+		Cola.Encolar(linea[0], linea[1])
+		fmt.Println("Id: ", linea[0]+" Nombre: "+linea[1])
+	}
+}
+
+/*func ExisteId(id string) bool {
+	if ListaCircular.RecorrerClientes(id, nombre) != nil {
+		Cola.RecorrerCola(id, nombre)
+		if Cola.RecorrerCola().Id == ListaCircular.RecorrerClientes().Id {
+			ListaCircular.Insertar(Cola.Enlistar().Id, Cola.Enlistar().Nombre)
+			return true
+		}
+	} else {
+		return false
+	}
+}*/
+
+func InsertarImagen() {
+	//ListaDoble.Insertar(imagen, capas)
+}
+
+func verificacion() {
+
+	if ListaSimple.Recorrer(id, password) != nil {
+		fmt.Println("Se ha iniciado sesión")
+		fmt.Println("Bienvenido" + id)
+	} else {
+		fmt.Println(
+			"Credenciales incorrectas",
+		)
+	}
+
+	menu_empleado()
 }

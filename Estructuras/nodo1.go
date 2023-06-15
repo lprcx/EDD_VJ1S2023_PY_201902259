@@ -1,14 +1,9 @@
 package estructuras
 
-/*type Nodo struct {
-	valor     int
-	siguiente *Nodo
-}*/
-
-type Nodo2 struct {
-	empleado  *Empleado
-	siguiente *Nodo2
-	anterior  *Nodo2
+type NodoDoble struct {
+	imagen    *Imagenn
+	siguiente *NodoDoble
+	anterior  *NodoDoble
 }
 
 type NodoLista struct {
@@ -22,7 +17,7 @@ type NodoCircular struct {
 }
 
 type NodoCola struct {
-	Empleado  *Empleado /* Representacion de Cliente */
+	cliente   *Cliente /* Representacion de Cliente */
 	Siguiente *NodoCola
 }
 
