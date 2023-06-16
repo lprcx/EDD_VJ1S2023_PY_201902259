@@ -5,6 +5,7 @@ import (
 	"encoding/csv"
 	"fmt"
 	"io"
+	"math/rand"
 	"os"
 	"strconv"
 )
@@ -13,6 +14,7 @@ var ListaSimple = estructuras.ListaEmpleados{Inicio: nil, Longitud: 0}
 var ListaCircular = estructuras.ListaCircular{Inicio: nil, Longitud: 0}
 var ListaDoble = estructuras.ListaDoble{Inicio: nil, Longitud: 0}
 var Cola = estructuras.Cola{Primero: nil, Longitud: 0}
+var Pila = estructuras.Pila{Primero: nil, Longitud: 0}
 
 var (
 	id       string
@@ -20,6 +22,14 @@ var (
 	cargo    string
 	password string
 	opcion3  int
+	nimagen  string
+	capas    int
+	x        int
+	y        int
+	color    string
+	idc      string
+	ide      string
+	Imagen   string
 )
 
 func main() {
@@ -102,6 +112,7 @@ func menu_admin() {
 			ListaCircular.ReporteClientes()
 			ListaSimple.ReporteEmpleados()
 			Cola.Graficar()
+			Pila.Graficar()
 		case 6:
 			fmt.Println("Cerrando Aplicacion....")
 			main()
@@ -122,19 +133,38 @@ func menu_empleado() {
 	fmt.Scanln(&opcion)
 	switch opcion {
 	case 1:
+		fmt.Println("Escriba el nombre de la imagen: ")
 	case 2:
+		Cola.MostrarPrimero()
+		ListaCircular.Insertar(Cola.Enlistar().Id, Cola.Enlistar().Nombre)
+		RealizarPedido()
 	default:
 
 	}
 }
 
 func RealizarPedido() {
-	fmt.Println("Ingrese el id del cliente: ")
-	fmt.Scanln(&id)
 	fmt.Println("Ingrese su id: ")
-	fmt.Scanln(&id)
+	fmt.Scanln(ide)
+	fmt.Println("Ingrese el id del cliente: ")
+	fmt.Scanln(Cola.Enlistar().Id)
+	if Cola.Enlistar().Id == "X" {
+		var nuevoid int
+		_ = nuevoid
+		x, err := strconv.Atoi(Cola.Enlistar().Id)
+		if err != nil {
+			fmt.Println("Error", err)
+			return
+		}
+		nuevoid = x
+		nuevoid = rand.Intn(9999)
+		id = strconv.Itoa(nuevoid)
+		Cola.RecorrerCola(idc, nombre)
+	}
+	Cola.Enlistar()
 	fmt.Println("Ingrese el nombre de la imagen: ")
-	//fmt.Scanln(&imagen)
+	fmt.Scanln(&Imagen)
+	Pila.Push(Imagen, &estructuras.Cliente{Id: idc, Nombre: nombre})
 }
 
 func LeerArchivo(ruta string) {
@@ -295,4 +325,17 @@ func verificacion() {
 	}
 
 	menu_empleado()
+}
+
+func matrizz() {
+	matriz := &estructuras.Matriz{Raiz: &estructuras.NodoMatriz{PosX: -1, PosY: -1, Color: "RAIZ"}}
+	matriz_csv := &estructuras.Matriz{Raiz: &estructuras.NodoMatriz{PosX: -1, PosY: -1, Color: "RAIZ"}}
+	matriz.Insertar_Elemento(x, y, color)
+	//matriz.Reporte()
+	imagen := ListaDoble.Recorrer(nimagen, capas).Imagen
+	//archivo := "body.csv"
+	//matriz_csv.LeerArchivo("csv/" + imagen + "/" + archivo)
+	//matriz_csv.Reporte()
+	matriz_csv.LeerInicial("csv/"+imagen+"/inicial.csv", imagen)
+	matriz_csv.GenerarImagen(imagen)
 }

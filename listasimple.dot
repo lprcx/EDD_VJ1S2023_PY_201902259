@@ -2,8 +2,7 @@ digraph lista{
 rankdir=LR;
 node[shape = record];
 nodonull2[label="null"];
-nodo0->nodonull2;
-}51Nombre: sebastian Solares"];
+nodo0[label="ID: 5151Nombre: sebastian Solares"];
 nodo1[label="ID: 3333Nombre: Juan Mendoza"];
 nodo2[label="ID: 2423Nombre: Luis Perez"];
 nodo3[label="ID: 1262Nombre: Angel Rustrian"];

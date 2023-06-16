@@ -4,8 +4,7 @@ node[shape = record];
 nodonull1[label="null"];
 nodonull2[label="null"];
 nodonull1->nodo0 [dir=back];
-nodo0->nodonull2;
-}
+nodo0[label="bmo"];
 nodo1[label="corrin"];
 nodo2[label="deadpool"];
 nodo3[label="hulk"];

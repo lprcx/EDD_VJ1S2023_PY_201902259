@@ -37,6 +37,10 @@ func (c *Cola) Descolar() {
 	}
 }
 
+func (c *Cola) MostrarPrimero() {
+	fmt.Println(c.Primero.cliente.Id, " ", c.Primero.cliente.Nombre, " ")
+}
+
 func (c *Cola) RecorrerCola(id string, nombre string) {
 	if c.Longitud == 0 {
 		fmt.Println("No hay clientes en la cola")

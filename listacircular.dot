@@ -1,8 +1,7 @@
 digraph lista{
 rankdir=LR;
 node[shape = record];
-nodo0->nodo0;
-}: 4435Nombre: Cristian Suy"];
+nodo0[label="ID: 4435Nombre: Cristian Suy"];
 nodo1[label="ID: 5268Nombre: Hector Jimenez"];
 nodo2[label="ID: 2503Nombre: Pablo Velasquez"];
 nodo3[label="ID: 4975Nombre: Jaquelin Gomez"];

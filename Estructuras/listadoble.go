@@ -13,8 +13,8 @@ func (l *ListaDoble) estaVacia() bool {
 	return l.Longitud == 0
 }
 
-func (l *ListaDoble) Insertar(imagen string, capas int) {
-	nuevoImagen := &Imagenn{Imagen: imagen, Capas: capas}
+func (l *ListaDoble) Insertar(nimagen string, capas int) {
+	nuevoImagen := &Imagenn{Imagen: nimagen, Capas: capas}
 	// 0x8494AB8 = {20200000, Jose}
 	//nuevoAlumno := &Alumno{carnet, nombre}
 	if l.estaVacia() {
@@ -30,6 +30,21 @@ func (l *ListaDoble) Insertar(imagen string, capas int) {
 	}
 }
 
+func (l *ListaDoble) Recorrer(imagen string, capas int) *Imagenn {
+	if l.estaVacia() {
+		return nil
+	} else {
+		aux := l.Inicio
+		for i := 0; i < l.Longitud; i++ {
+			if imagen == aux.nimagen.Imagen && capas == aux.nimagen.Capas {
+				return aux.nimagen
+			}
+			aux = aux.anterior
+		}
+		return nil
+	}
+}
+
 func (l *ListaDoble) Reporte() {
 	nombreArchivo := "./listadoble.dot"
 	nombreImagen := "./listadoble.jpg"
@@ -42,7 +57,7 @@ func (l *ListaDoble) Reporte() {
 	contador := 0
 	texto += "nodonull1->nodo0 [dir=back];\n"
 	for i := 0; i < l.Longitud; i++ {
-		texto += "nodo" + strconv.Itoa(i) + "[label=\"" + aux.imagen.Imagen + "\"];\n"
+		texto += "nodo" + strconv.Itoa(i) + "[label=\"" + aux.nimagen.Imagen + "\"];\n"
 		aux = aux.siguiente
 	}
 	for i := 0; i < l.Longitud-1; i++ {

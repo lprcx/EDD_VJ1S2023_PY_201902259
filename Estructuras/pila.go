@@ -7,13 +7,13 @@ type Pila struct {
 	Longitud int
 }
 
-func (p *Pila) Push(color string, empleado *Empleado) {
+func (p *Pila) Push(Imagen string, cliente *Cliente) {
 	if p.Longitud == 0 {
-		nuevoNodo := &NodoPila{Empleado: empleado, Color: color, Siguiente: nil}
+		nuevoNodo := &NodoPila{cliente: cliente, Imagen: Imagen, Siguiente: nil}
 		p.Primero = nuevoNodo
 		p.Longitud++
 	} else {
-		nuevoNodo := &NodoPila{Empleado: empleado, Color: color, Siguiente: p.Primero}
+		nuevoNodo := &NodoPila{cliente: cliente, Imagen: Imagen, Siguiente: p.Primero}
 		p.Primero = nuevoNodo
 		p.Longitud++
 	}
@@ -37,7 +37,7 @@ func (p *Pila) Graficar() {
 	aux := p.Primero
 	texto += "nodo0 [label=\""
 	for i := 0; i < p.Longitud; i++ {
-		texto = texto + "|(Carnet: " + aux.Empleado.Id + ", Imagen: " + aux.Color + ")"
+		texto = texto + "|(ID: " + aux.cliente.Id + ", Imagen: " + aux.Imagen + ")"
 		aux = aux.Siguiente
 	}
 	texto += "\"]; \n}"

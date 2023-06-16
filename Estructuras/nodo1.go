@@ -1,7 +1,7 @@
 package estructuras
 
 type NodoDoble struct {
-	imagen    *Imagenn
+	nimagen   *Imagenn
 	siguiente *NodoDoble
 	anterior  *NodoDoble
 }
@@ -22,7 +22,17 @@ type NodoCola struct {
 }
 
 type NodoPila struct {
-	Empleado  *Empleado /*Representacion de Cliente*/
-	Color     string    /*Representacion de Imagen*/
+	cliente   *Cliente /*Representacion de Cliente*/
+	Imagen    string   /*Representacion de Imagen*/
 	Siguiente *NodoPila
+}
+
+type NodoMatriz struct {
+	Siguiente *NodoMatriz
+	Anterior  *NodoMatriz
+	Abajo     *NodoMatriz
+	Arriba    *NodoMatriz
+	PosX      int
+	PosY      int
+	Color     string
 }
