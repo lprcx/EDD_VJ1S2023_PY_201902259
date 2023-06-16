@@ -1,4 +1,4 @@
 digraph pila{
 rankdir=LR;
-node[shape = record]nodo0 [label="|(Carnet: X, Imagen: X)"]; 
+node[shape = record]nodo0 [label="|(ID: 2111, Imagen: bmo)"]; 
 }

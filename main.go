@@ -8,6 +8,7 @@ import (
 	"math/rand"
 	"os"
 	"strconv"
+	"strings"
 )
 
 var ListaSimple = estructuras.ListaEmpleados{Inicio: nil, Longitud: 0}
@@ -30,6 +31,7 @@ var (
 	idc      string
 	ide      string
 	Imagen   string
+	longitud int
 )
 
 func main() {
@@ -127,44 +129,80 @@ func menu_admin() {
 
 func menu_empleado() {
 	opcion := 0
-	fmt.Println("-------------EDD Creative " + id + "-----------")
-	fmt.Println("1. Ver Imagenes Cargadas")
-	fmt.Println("2. Realizar Pedido")
-	fmt.Scanln(&opcion)
-	switch opcion {
-	case 1:
-		fmt.Println("Escriba el nombre de la imagen: ")
-	case 2:
-		Cola.MostrarPrimero()
-		ListaCircular.Insertar(Cola.Enlistar().Id, Cola.Enlistar().Nombre)
-		RealizarPedido()
-	default:
+	for opcion != 3 {
+		fmt.Println("-------------EDD Creative " + id + "-----------")
+		fmt.Println("1. Ver Imagenes Cargadas")
+		fmt.Println("2. Realizar Pedido")
+		fmt.Println("3. Cerrar Sesión")
+		fmt.Scanln(&opcion)
+		switch opcion {
+		case 1:
+			fmt.Println("Escriba el nombre de la imagen: ")
+		case 2:
+			Cola.MostrarPrimero()
+			RealizarPedido(id)
+		default:
 
+		}
 	}
 }
 
-func RealizarPedido() {
-	fmt.Println("Ingrese su id: ")
-	fmt.Scanln(ide)
-	fmt.Println("Ingrese el id del cliente: ")
-	fmt.Scanln(Cola.Enlistar().Id)
-	if Cola.Enlistar().Id == "X" {
-		var nuevoid int
-		_ = nuevoid
-		x, err := strconv.Atoi(Cola.Enlistar().Id)
-		if err != nil {
-			fmt.Println("Error", err)
-			return
+func RealizarPedido(id string) {
+	for {
+		idc = Cola.ObtenerId()
+		nombre = Cola.ObtenerNombre()
+		longitud = Cola.ObtenerLongitud()
+		if longitud != 0 {
+			fmt.Println("Atendiendo al cliente con id: " + idc)
+			fmt.Println("Atendiendo al cliente: " + nombre)
+			if strings.ToUpper(idc) == "X" {
+				for {
+					var nuevoid int
+					_ = nuevoid
+					nuevoid = rand.Intn(9999)
+					validacion := ListaCircular.Validar(strconv.Itoa(nuevoid))
+					if validacion == true {
+						// " "
+					} else {
+						ListaDoble.Mostrar()
+						var opcion int
+						fmt.Println("Elija una opción: ")
+						fmt.Scanln(&opcion)
+						nimagen = ListaDoble.Validarimagen(strconv.Itoa(opcion))
+						ListaCircular.Insertar(idc, nombre)
+						Pila.Push(idc, nimagen, id)
+						Cola.Descolar()
+						fmt.Println("Cliente agregado: ", nombre, "con id ", nuevoid)
+						break
+					}
+				}
+			} else {
+				var opcion int
+				validacion := ListaCircular.Validar(idc)
+				if validacion == true {
+					ListaDoble.Mostrar()
+					fmt.Println("Elija una opción: ")
+					fmt.Scanln(&opcion)
+					nimagen = ListaDoble.Validarimagen(strconv.Itoa(opcion))
+					Pila.Push(idc, nimagen, id)
+					Cola.Descolar()
+				} else {
+					ListaDoble.Mostrar()
+					fmt.Println("Elija una opción: ")
+					fmt.Scanln(&opcion)
+					nimagen = ListaDoble.Validarimagen(strconv.Itoa(opcion))
+					ListaCircular.Insertar(idc, nombre)
+					Pila.Push(idc, nimagen, id)
+					Cola.Descolar()
+				}
+
+			}
+		} else {
+			fmt.Println("No hay clientes en cola")
+			break
 		}
-		nuevoid = x
-		nuevoid = rand.Intn(9999)
-		id = strconv.Itoa(nuevoid)
-		Cola.RecorrerCola(idc, nombre)
+
 	}
-	Cola.Enlistar()
-	fmt.Println("Ingrese el nombre de la imagen: ")
-	fmt.Scanln(&Imagen)
-	Pila.Push(Imagen, &estructuras.Cliente{Id: idc, Nombre: nombre})
 }
 
 func LeerArchivo(ruta string) {

@@ -1,6 +1,7 @@
 package estructuras
 
 import (
+	"fmt"
 	"strconv"
 )
 
@@ -39,10 +40,37 @@ func (l *ListaDoble) Recorrer(imagen string, capas int) *Imagenn {
 			if imagen == aux.nimagen.Imagen && capas == aux.nimagen.Capas {
 				return aux.nimagen
 			}
-			aux = aux.anterior
+			aux = aux.siguiente
 		}
 		return nil
 	}
+}
+
+func (l *ListaDoble) Mostrar() {
+	if l.estaVacia() {
+	} else {
+		contador := 1
+		aux := l.Inicio
+		for i := 0; i < l.Longitud; i++ {
+			fmt.Println(strconv.Itoa(contador), ". ", aux.nimagen.Imagen)
+			aux = aux.siguiente
+			contador++
+		}
+
+	}
+}
+
+func (l *ListaDoble) Validarimagen(opcion string) string {
+	aux := l.Inicio
+	contador := 1
+	for i := 0; i < l.Longitud; i++ {
+		if opcion == strconv.Itoa(contador) {
+			return aux.nimagen.Imagen
+		}
+		contador++
+		aux = aux.siguiente
+	}
+	return "Opccion no valida"
 }
 
 func (l *ListaDoble) Reporte() {

@@ -22,9 +22,10 @@ type NodoCola struct {
 }
 
 type NodoPila struct {
-	cliente   *Cliente /*Representacion de Cliente*/
-	Imagen    string   /*Representacion de Imagen*/
-	Siguiente *NodoPila
+	idcliente  string /*Representacion de Cliente*/
+	Imagen     string /*Representacion de Imagen*/
+	idempleado string
+	Siguiente  *NodoPila
 }
 
 type NodoMatriz struct {

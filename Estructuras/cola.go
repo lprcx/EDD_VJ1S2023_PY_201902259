@@ -2,7 +2,6 @@ package estructuras
 
 import (
 	"fmt"
-	"math/rand"
 	"strconv"
 )
 
@@ -41,28 +40,43 @@ func (c *Cola) MostrarPrimero() {
 	fmt.Println(c.Primero.cliente.Id, " ", c.Primero.cliente.Nombre, " ")
 }
 
-func (c *Cola) RecorrerCola(id string, nombre string) {
+func (c *Cola) RecorrerCola(id string, nombre string) *Cliente {
 	if c.Longitud == 0 {
 		fmt.Println("No hay clientes en la cola")
+		return nil
 	} else {
 		aux := c.Primero
 		for i := 0; i < c.Longitud; i++ {
-			var nuevoid int
-			_ = nuevoid
-			if id == "X" {
-				x, err := strconv.Atoi(aux.cliente.Id)
-				if err != nil {
-					fmt.Println("Error", err)
-					return
-				}
-				nuevoid = x
-				nuevoid = rand.Intn(9999)
-				id = strconv.Itoa(nuevoid)
+			if id == aux.cliente.Id && nombre == aux.cliente.Nombre {
+				return aux.cliente
 			}
-			fmt.Println("Nombre: ", aux.cliente.Nombre, " Carnet: ", aux.cliente.Id)
+			//fmt.Println("Nombre: ", aux.cliente.Nombre, " Carnet: ", aux.cliente.Id)
 			aux = aux.Siguiente
 		}
+		return nil
 	}
+}
+
+func (c *Cola) ObtenerId() string {
+	aux := c.Primero
+	if aux != nil {
+		return aux.cliente.Id
+	} else {
+		return "Está vacío"
+	}
+}
+
+func (c *Cola) ObtenerNombre() string {
+	aux := c.Primero
+	if aux != nil {
+		return aux.cliente.Nombre
+	} else {
+		return "Está vacío"
+	}
+}
+
+func (c *Cola) ObtenerLongitud() int {
+	return c.Longitud
 }
 
 func (c *Cola) Enlistar() *Cliente {

@@ -34,7 +34,7 @@ func (l *ListaCircular) Insertar(id string, nombre string) {
 func (l *ListaCircular) Mostrar() {
 	aux := l.Inicio
 	for i := 0; i < l.Longitud; i++ {
-		fmt.Println("Nombre: ", aux.cliente.Nombre, " Carnet: ", aux.cliente.Id)
+		fmt.Println("Nombre: ", aux.cliente.Nombre, " Id: ", aux.cliente.Id)
 		aux = aux.siguiente
 	}
 }
@@ -52,6 +52,17 @@ func (l *ListaCircular) RecorrerClientes(id string, nombre string) *Cliente {
 		}
 		return nil
 	}
+}
+
+func (l *ListaCircular) Validar(id string) bool {
+	aux := l.Inicio
+	for i := 0; i < l.Longitud; i++ {
+		if id == aux.cliente.Id {
+			return true
+		}
+		aux = aux.siguiente
+	}
+	return false
 }
 
 func (l *ListaCircular) ReporteClientes() {
