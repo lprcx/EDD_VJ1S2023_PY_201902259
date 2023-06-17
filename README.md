@@ -201,21 +201,114 @@ func (p *Pila) Push(idcliente string, Imagen string, idempleado string) {
 La función Push inserta un nuevo nodo en la pila, recibe el id del cliente, del empleado en el sistema y el nombre de la imagen a cargar.
 
 ##### Estructuras/matriz.go
-###### Función RecorrerClientes
+###### Función Insertar_Elemento
 ```go
+func (m *Matriz) Insertar_Elemento(x int, y int, color string) {
+	nuevoNodo := &NodoMatriz{PosX: x, PosY: y, Color: color}
+	nodoColumna := m.buscarC(x)
+	nodoFila := m.buscarF(y)
+	if nodoColumna == nil && nodoFila == nil {
+		fmt.Println("Primer Caso")
+		nodoColumna = m.nuevaColumna(x)
+		nodoFila = m.nuevaFila(y)
+		nuevoNodo = m.insertarColumna(nuevoNodo, nodoFila)
+		nuevoNodo = m.insertarFila(nuevoNodo, nodoColumna)
+	} else if nodoColumna != nil && nodoFila == nil {
+		fmt.Println("Segundo Caso")
+		nodoFila = m.nuevaFila(y)
+		nuevoNodo = m.insertarColumna(nuevoNodo, nodoFila)
+		nuevoNodo = m.insertarFila(nuevoNodo, nodoColumna)
+	} else if nodoColumna == nil && nodoFila != nil {
+		fmt.Println("Tercer Caso")
+		nodoColumna = m.nuevaColumna(x)
+		nuevoNodo = m.insertarColumna(nuevoNodo, nodoFila)
+		nuevoNodo = m.insertarFila(nuevoNodo, nodoColumna)
+	} else if nodoColumna != nil && nodoFila != nil {
+		fmt.Println("Cuarto Caso")
+		nuevoNodo = m.insertarColumna(nuevoNodo, nodoFila)
+		nuevoNodo = m.insertarFila(nuevoNodo, nodoColumna)
+	} else {
+		fmt.Println("ERROR!!!!!!")
+	}
+}
 ```
-###### Función
+Esta función inserta un nodo en la matriz, dependiendo del caso del nuevo nodo, en el primer caso no existe fila ni columna, en el segundo caso si existe columna pero no fila, para el tercer caso existe fila pero no columna y para el ultimo caso ambas existen.
+
+###### Función LeerInicial
 ```go
+func (m *Matriz) LeerInicial(ruta string, imagen string) {
+	file, err := os.Open(ruta)
+	if err != nil {
+		fmt.Println("No pude abrir el archivo")
+		return
+	}
+	defer file.Close()
+
+	lectura := csv.NewReader(file)
+	lectura.Comma = ','
+	encabezado := true
+	for {
+		linea, err := lectura.Read()
+		if err == io.EOF {
+			break
+		}
+		if err != nil {
+			fmt.Println("No pude leer la linea del csv")
+			continue
+		}
+		if encabezado {
+			encabezado = false
+			continue
+		}
+		if linea[0] == "0" {
+			m.leerConfig("csv/" + imagen + "/" + linea[1]) /*csv/mario/config.csv*/
+		} else {
+			m.LeerArchivo("csv/" + imagen + "/" + linea[1])
+		}
+	}
+}
 ```
-###### Función
+Esta función obtiene la ruta del archivo csv y lo lee, llamando después a la función leerConfig() y LeerArchivo() para interpretar las indicaciones de la imagen.
+##### main.go
+###### Función ReporteCapa
 ```go
+func ReporteCapa() {
+	opcion := 0
+	ListaDoble.Mostrar()
+	fmt.Println("Elija una opción: ")
+	fmt.Scanln(&opcion)
+	nimagen = ListaDoble.Validarimagen(strconv.Itoa(opcion))
+	var listacapas = estructuras.NewListaSimpleC()
+	var matriz = &estructuras.Matriz{Raiz: &estructuras.NodoMatriz{PosX: -1, PosY: -1, Color: "RAIZ"}}
+	matriz.LeerInicialCapas("csv/"+nimagen+"/inicial.csv", nimagen, listacapas)
+	opcion1 := 0
+	listacapas.ListarCapa()
+	fmt.Println("Elija una opción: ")
+	fmt.Scanln(&opcion1)
+	nombrecapa := listacapas.BuscarCapa(strconv.Itoa(opcion1))
+	matriz = &estructuras.Matriz{Raiz: &estructuras.NodoMatriz{PosX: -1, PosY: -1, Color: "RAIZ"}}
+	matriz.LeerCapa2("csv/"+nimagen+"/inicial.csv", nimagen, nombrecapa)
+	matriz = &estructuras.Matriz{Raiz: nil}
+}
 ```
-###### Función
+Esta función permite mostrar la list de imagenes disponibles y luego al escoger la imagen, muestra las capas de la misma para seleccionar de qué capa se desea visualizar el gráfico.
+###### Función matrizz
 ```go
+func matrizz() {
+	opcion := 0
+	var matriz = estructuras.Matriz{Raiz: &estructuras.NodoMatriz{PosX: -1, PosY: -1, Color: "RAIZ"}}
+	ListaDoble.Mostrar()
+	fmt.Println("Elija una opción: ")
+	fmt.Scanln(&opcion)
+	nimagen = ListaDoble.Validarimagen(strconv.Itoa(opcion))
+	matriz.LeerInicial("csv/"+nimagen+"/inicial.csv", nimagen)
+	matriz.GenerarImagen(nimagen)
+	matriz = estructuras.Matriz{Raiz: nil}
+	fmt.Println("Imagen generada con éxito " + nimagen)
+}
 ```
-###### Función
-```go
-```
+En esta función se inicializa la matriz, luego se muestran las imagenes disponibles, seguido de escoger la imagen se valida y posteriormente se lee el csv de la imagen para luego generar la misma.
+
 
 ### Manual de Usuario
 

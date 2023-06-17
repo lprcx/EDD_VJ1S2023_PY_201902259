@@ -5,7 +5,7 @@
 			"imagen": "corrin " 
 		},
 		{
-			"id_cliente": X, 
+			"id_cliente": "X ", 
 			"imagen": "tux " 
 		},
 		{
@@ -13,12 +13,12 @@
 			"imagen": "corrin " 
 		},
 		{
-			"id_cliente": X, 
-			"imagen": "mario " 
+			"id_cliente": "X ", 
+			"imagen": "deadpool " 
 		},
 		{
 			"id_cliente": 5268, 
-			"imagen": "deadpool " 
+			"imagen": "hulk " 
 		},
 		{
 			"id_cliente": 2111, 
