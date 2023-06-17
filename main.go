@@ -233,7 +233,7 @@ func LeerArchivo(ruta string) {
 			break
 		}
 		ListaSimple.Insertar(linea[0], linea[1], linea[2], linea[3])
-		fmt.Println("nombre: ", linea[1]+" Cargo: "+linea[2], " id: ", linea[0])
+		//fmt.Println("nombre: ", linea[1]+" Cargo: "+linea[2], " id: ", linea[0])
 	}
 }
 
@@ -267,7 +267,7 @@ func LeerArchivoImagen(ruta2 string) {
 
 		str, err := strconv.Atoi(linea[1])
 		ListaDoble.Insertar(linea[0], str)
-		fmt.Println("Imagen: ", linea[0]+" Capas: "+linea[1])
+		//fmt.Println("Imagen: ", linea[0]+" Capas: "+linea[1])
 	}
 }
 
@@ -299,7 +299,7 @@ func LeerArchivoCliente(ruta3 string) {
 			break
 		}
 		ListaCircular.Insertar(linea[0], linea[1])
-		fmt.Println("Id: ", linea[0]+" Nombre: "+linea[1])
+		//fmt.Println("Id: ", linea[0]+" Nombre: "+linea[1])
 	}
 }
 
@@ -331,7 +331,7 @@ func LeerArchivoCola(ruta4 string) {
 			break
 		}
 		Cola.Encolar(linea[0], linea[1])
-		fmt.Println("Id: ", linea[0]+" Nombre: "+linea[1])
+		//fmt.Println("Id: ", linea[0]+" Nombre: "+linea[1])
 	}
 }
 
