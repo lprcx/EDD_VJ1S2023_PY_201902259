@@ -2,7 +2,8 @@ digraph cola{
 rankdir=LR;
 node[shape = record];
 nodonull2[label="null"];
-nodo0[label="{ID: 5268, Nombre: Hector Jimenez|}"];
+nodo0->nodonull2;
+}268, Nombre: Hector Jimenez|}"];
 nodo1[label="{ID: X, Nombre: Joel Guzman|}"];
 nodo2[label="{ID: 2411, Nombre: Karen Garcia|}"];
 nodo3[label="{ID: X, Nombre: Teodoro Mejia|}"];

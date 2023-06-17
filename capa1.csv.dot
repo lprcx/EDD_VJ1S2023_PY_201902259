@@ -1,0 +1,17 @@
+digraph MatrizCapa{ 
+ node[shape=box] 
+ rankdir=UD; 
+ {rank=min; 
+nodo00[label="RAIZ" ,rankdir=LR,group=0]; 
+nodo80[label="C7" ,rankdir=LR,group=8]; 
+}{rank=same; 
+nodo00[label="RAIZ" ,group=0]; 
+nodo80[label="C7" ,group=8]; 
+}{rank=same; 
+nodo012[label="F11" ,group=0]; 
+nodo812[label="182-43-66" ,group=8]; 
+}nodo00 -> nodo80 [dir=both];
+nodo012 -> nodo812 [dir=both];
+nodo00 -> nodo012 [dir=both];
+nodo80 -> nodo812 [dir=both];
+}

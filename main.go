@@ -129,22 +129,44 @@ func menu_admin() {
 
 func menu_empleado() {
 	opcion := 0
-	for opcion != 3 {
+	for opcion != 4 {
 		fmt.Println("-------------EDD Creative " + id + "-----------")
 		fmt.Println("1. Ver Imagenes Cargadas")
 		fmt.Println("2. Realizar Pedido")
-		fmt.Println("3. Cerrar Sesión")
+		fmt.Println("3. Reporte de Capas")
+		fmt.Println("4. Cerrar Sesión")
 		fmt.Scanln(&opcion)
 		switch opcion {
 		case 1:
-			fmt.Println("Escriba el nombre de la imagen: ")
+			matrizz()
 		case 2:
 			Cola.MostrarPrimero()
 			RealizarPedido(id)
+		case 3:
+			ReporteCapa()
 		default:
 
 		}
 	}
+}
+
+func ReporteCapa() {
+	opcion := 0
+	ListaDoble.Mostrar()
+	fmt.Println("Elija una opción: ")
+	fmt.Scanln(&opcion)
+	nimagen = ListaDoble.Validarimagen(strconv.Itoa(opcion))
+	var listacapas = estructuras.NewListaSimpleC()
+	var matriz = &estructuras.Matriz{Raiz: &estructuras.NodoMatriz{PosX: -1, PosY: -1, Color: "RAIZ"}}
+	matriz.LeerInicialCapas("csv/"+nimagen+"/inicial.csv", nimagen, listacapas)
+	opcion1 := 0
+	listacapas.ListarCapa()
+	fmt.Println("Elija una opción: ")
+	fmt.Scanln(&opcion1)
+	nombrecapa := listacapas.BuscarCapa(strconv.Itoa(opcion1))
+	matriz = &estructuras.Matriz{Raiz: &estructuras.NodoMatriz{PosX: -1, PosY: -1, Color: "RAIZ"}}
+	matriz.LeerCapa2("csv/"+nimagen+"/inicial.csv", nimagen, nombrecapa)
+	matriz = &estructuras.Matriz{Raiz: nil}
 }
 
 func RealizarPedido(id string) {
@@ -173,6 +195,9 @@ func RealizarPedido(id string) {
 						Pila.Push(idc, nimagen, id)
 						Cola.Descolar()
 						fmt.Println("Cliente agregado: ", nombre, "con id ", nuevoid)
+						contenido := estructuras.ArchivoJSON(&Pila)
+						estructuras.CrearArchivo()
+						estructuras.EscribirArchivo(contenido)
 						break
 					}
 				}
@@ -186,6 +211,9 @@ func RealizarPedido(id string) {
 					nimagen = ListaDoble.Validarimagen(strconv.Itoa(opcion))
 					Pila.Push(idc, nimagen, id)
 					Cola.Descolar()
+					contenido := estructuras.ArchivoJSON(&Pila)
+					estructuras.CrearArchivo()
+					estructuras.EscribirArchivo(contenido)
 				} else {
 					ListaDoble.Mostrar()
 					fmt.Println("Elija una opción: ")
@@ -194,6 +222,9 @@ func RealizarPedido(id string) {
 					ListaCircular.Insertar(idc, nombre)
 					Pila.Push(idc, nimagen, id)
 					Cola.Descolar()
+					contenido := estructuras.ArchivoJSON(&Pila)
+					estructuras.CrearArchivo()
+					estructuras.EscribirArchivo(contenido)
 				}
 
 			}
@@ -366,14 +397,20 @@ func verificacion() {
 }
 
 func matrizz() {
-	matriz := &estructuras.Matriz{Raiz: &estructuras.NodoMatriz{PosX: -1, PosY: -1, Color: "RAIZ"}}
-	matriz_csv := &estructuras.Matriz{Raiz: &estructuras.NodoMatriz{PosX: -1, PosY: -1, Color: "RAIZ"}}
-	matriz.Insertar_Elemento(x, y, color)
+	opcion := 0
+	var matriz = estructuras.Matriz{Raiz: &estructuras.NodoMatriz{PosX: -1, PosY: -1, Color: "RAIZ"}}
+	//matriz.Insertar_Elemento(x, y, color)
 	//matriz.Reporte()
-	imagen := ListaDoble.Recorrer(nimagen, capas).Imagen
+	//imagen := ListaDoble.Recorrer(nimagen, capas).Imagen
 	//archivo := "body.csv"
 	//matriz_csv.LeerArchivo("csv/" + imagen + "/" + archivo)
 	//matriz_csv.Reporte()
-	matriz_csv.LeerInicial("csv/"+imagen+"/inicial.csv", imagen)
-	matriz_csv.GenerarImagen(imagen)
+	ListaDoble.Mostrar()
+	fmt.Println("Elija una opción: ")
+	fmt.Scanln(&opcion)
+	nimagen = ListaDoble.Validarimagen(strconv.Itoa(opcion))
+	matriz.LeerInicial("csv/"+nimagen+"/inicial.csv", nimagen)
+	matriz.GenerarImagen(nimagen)
+	matriz = estructuras.Matriz{Raiz: nil}
+	fmt.Println("Imagen generada con éxito " + nimagen)
 }

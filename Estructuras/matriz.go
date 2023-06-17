@@ -151,10 +151,10 @@ func (m *Matriz) Insertar_Elemento(x int, y int, color string) {
 	}
 }
 
-func (m *Matriz) Reporte() {
+func (m *Matriz) Reporte(nombrecapa string) {
 	texto := ""
-	nombre_archivo := "./matriz.dot"
-	nombre_imagen := "matriz.jpg"
+	nombre_archivo := "./" + nombrecapa + ".dot"
+	nombre_imagen := "./" + nombrecapa + ".jpg"
 	aux1 := m.Raiz
 	aux2 := m.Raiz
 	aux3 := m.Raiz
@@ -353,4 +353,71 @@ func (m *Matriz) generarHTML(nombre_imagen string) {
 	contenidoHTML += "</div> \n </body> \n </html> \n"
 	crearArchivo(archivoHTML)
 	escribirArchivo(contenidoHTML, archivoHTML)
+}
+
+func (m *Matriz) LeerInicialCapas(ruta string, imagen string, listacapa *ListaCapa) {
+	file, err := os.Open(ruta)
+	if err != nil {
+		fmt.Println("No pude abrir el archivo")
+		return
+	}
+	defer file.Close()
+
+	lectura := csv.NewReader(file)
+	lectura.Comma = ','
+	encabezado := true
+	for {
+		linea, err := lectura.Read()
+		if err == io.EOF {
+			break
+		}
+		if err != nil {
+			fmt.Println("No pude leer la linea del csv")
+			continue
+		}
+		if encabezado {
+			encabezado = false
+			continue
+		}
+		if linea[0] == "0" {
+			m.leerConfig("csv/" + imagen + "/" + linea[1])
+		} else {
+			listacapa.InsertaCapa(strings.TrimSpace(linea[0]), strings.TrimSpace(linea[1]))
+		}
+	}
+}
+
+func (m *Matriz) LeerCapa2(ruta string, imagen string, capaelegida string) {
+	file, err := os.Open(ruta)
+	if err != nil {
+		fmt.Println("No pude abrir el archivo")
+		return
+	}
+	defer file.Close()
+
+	lectura := csv.NewReader(file)
+	lectura.Comma = ','
+	encabezado := true
+	for {
+		linea, err := lectura.Read()
+		if err == io.EOF {
+			break
+		}
+		if err != nil {
+			fmt.Println("No pude leer la linea del csv")
+			continue
+		}
+		if encabezado {
+			encabezado = false
+			continue
+		}
+		if linea[0] == "0" {
+			m.leerConfig("csv/" + imagen + "/" + linea[1]) /*csv/mario/config.csv*/
+		} else {
+			if capaelegida == linea[1] {
+				m.LeerArchivo("csv/" + imagen + "/" + linea[1])
+				m.Reporte(linea[1])
+			}
+		}
+	}
 }
