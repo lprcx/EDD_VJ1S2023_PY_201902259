@@ -2,13 +2,22 @@ package main
 
 import (
 	estructuras "EDD_VJ1S2023_PY_201902259/Estructuras"
+	"encoding/base64"
 	"encoding/csv"
+	"encoding/json"
 	"fmt"
 	"io"
+	"io/ioutil"
+	"log"
 	"math/rand"
+	"net/http"
 	"os"
 	"strconv"
 	"strings"
+
+	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/fiber/v2/middleware/cors"
+	"github.com/gorilla/mux"
 )
 
 var ListaSimple = estructuras.ListaEmpleados{Inicio: nil, Longitud: 0}
@@ -191,8 +200,8 @@ func RealizarPedido(id string) {
 						fmt.Println("Elija una opción: ")
 						fmt.Scanln(&opcion)
 						nimagen = ListaDoble.Validarimagen(strconv.Itoa(opcion))
-						ListaCircular.Insertar(idc, nombre)
-						Pila.Push(idc, nimagen, id)
+						ListaCircular.Insertar(strconv.Itoa(nuevoid), nombre)
+						Pila.Push(strconv.Itoa(nuevoid), nimagen, id)
 						Cola.Descolar()
 						fmt.Println("Cliente agregado: ", nombre, "con id ", nuevoid)
 						contenido := estructuras.ArchivoJSON(&Pila)
@@ -413,4 +422,152 @@ func matrizz() {
 	matriz.GenerarImagen(nimagen)
 	matriz = estructuras.Matriz{Raiz: nil}
 	fmt.Println("Imagen generada con éxito " + nimagen)
+}
+
+//Segunda fase
+
+type RespuestaImagen struct {
+	Imagenbase64 string
+	Nombre       string
+}
+
+var arbol *estructuras.Arbol
+
+func mainArbol() {
+	arbol = &estructuras.Arbol{Raiz: nil}
+	r := mux.NewRouter()
+	/*Devolver algo*/
+	r.HandleFunc("/", MostrarArbol).Methods("GET")
+	/*Recibe un valor del frontend*/
+	r.HandleFunc("/agregar-arbol", AgregarArbol).Methods("POST")
+	r.HandleFunc("/reporte-arbol", MandarReporte).Methods("GET")
+	log.Fatal(http.ListenAndServe(":3001", r))
+}
+
+func MostrarArbol(w http.ResponseWriter, req *http.Request) {
+	/*Esto nos verifica que le estamos enviando al servidor una respuesta de tipo JSON*/
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusCreated)
+	json.NewEncoder(w).Encode(&arbol)
+}
+
+func AgregarArbol(w http.ResponseWriter, req *http.Request) {
+	reqBody, err := ioutil.ReadAll(req.Body)
+	var nuevoNodo estructuras.NodoArbol
+	if err != nil {
+		fmt.Fprintf(w, "No valido")
+	}
+	json.Unmarshal(reqBody, &nuevoNodo)
+	arbol.InsertarElemento(nuevoNodo.Valor)
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusCreated)
+	json.NewEncoder(w).Encode(nuevoNodo)
+}
+
+func MandarReporte(w http.ResponseWriter, req *http.Request) {
+	arbol.Graficar()
+	var imagen RespuestaImagen = RespuestaImagen{Nombre: "arbolAVL.jpg"}
+	/*INICIO*/
+	imageBytes, err := ioutil.ReadFile(imagen.Nombre)
+	if err != nil {
+		fmt.Fprintf(w, "Imagen No Valida")
+		return
+	}
+	// Codifica los bytes de la imagen en base64
+	imagen.Imagenbase64 = "data:image/jpg;base64," + base64.StdEncoding.EncodeToString(imageBytes)
+
+	/*data:image/jpg;base64,ABC*/
+	w.Header().Set("Content-Type", "application/json")
+	w.Header().Set("Access-Control-Allow-Origin", "*")
+	w.WriteHeader(http.StatusCreated)
+	json.NewEncoder(w).Encode(imagen)
+}
+
+// clase 10 y 11
+// clase 11
+type Persona struct {
+	Identificador string
+	Password      string
+}
+
+/*
+{
+	Identificador: "usuario1"
+	Password: "1234"
+}
+*/
+
+var Tablahash *estructuras.TablaHash
+
+func mainHash() {
+	Tablahash = &estructuras.TablaHash{Capacidad: 5, Utilizacion: 0}
+	Tablahash.NewTablaHash()
+	app := fiber.New()
+	app.Use(cors.New())
+	// app.handlerFunc("/ruta",nombreFuncion).metodo("GET")
+	app.Get("/", func(c *fiber.Ctx) error {
+
+		return c.JSON(&fiber.Map{
+			"status": "ok",
+		})
+	})
+
+	app.Post("/comprobar-usuario", func(c *fiber.Ctx) error {
+		var usuario Persona
+		c.BodyParser(&usuario)
+		fmt.Println(usuario)
+		if usuario.Identificador == "2017" && usuario.Password == "2017" {
+			return c.JSON(&fiber.Map{
+				"status": "OK",
+			})
+		}
+		return c.JSON(&fiber.Map{
+			"estado": "NO",
+		})
+	})
+
+	app.Get("/obtener-tabla", func(c *fiber.Ctx) error {
+		return c.JSON(&fiber.Map{
+			"Datos": Tablahash,
+		})
+	})
+
+	/*8793, 4593, 7893, 2356*/
+	app.Post("/agregar-tabla", func(c *fiber.Ctx) error {
+		var nuevo estructuras.NodoHash
+		c.BodyParser(&nuevo)
+		Tablahash.Insertar(nuevo.Id_Cliente, nuevo.Id_Factura)
+		return c.JSON(&fiber.Map{
+			"status": "OK",
+		})
+	})
+
+	app.Listen(":3001")
+}
+
+//clase 15
+
+var ListaBloque *estructuras.BlockChain
+
+func mainnbloque() {
+	ListaBloque = &estructuras.BlockChain{BloqueCreados: 0}
+	app := fiber.New()
+	app.Use(cors.New())
+	app.Post("/agregar-bloque", func(c *fiber.Ctx) error {
+		var nuevoNodo estructuras.NodoBloquePeticion
+		c.BodyParser(&nuevoNodo)
+		ListaBloque.InsertarBloque(nuevoNodo.Timestamp, nuevoNodo.Biller, nuevoNodo.Customer, nuevoNodo.Payment)
+		return c.JSON(&fiber.Map{
+			"Data": nuevoNodo,
+		})
+	})
+
+	app.Get("/tablafacturas", func(c *fiber.Ctx) error {
+		factura := ListaBloque.ArregloFacturas()
+		return c.JSON(&fiber.Map{
+			"message": "OK",
+			"data":    factura,
+		})
+	})
+	app.Listen(":3001")
 }

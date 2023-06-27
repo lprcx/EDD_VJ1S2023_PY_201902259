@@ -37,3 +37,48 @@ type NodoMatriz struct {
 	PosY      int
 	Color     string
 }
+
+type NodoArbol struct {
+	Izquierdo         *NodoArbol
+	Derecho           *NodoArbol
+	Valor             int
+	Altura            int
+	Factor_Equilibrio int
+}
+
+type NodoMatrizDeAdyacencia struct {
+	Siguiente *NodoMatrizDeAdyacencia
+	Abajo     *NodoMatrizDeAdyacencia
+	Valor     string
+}
+
+type EnvioMatriz struct {
+	Padre   string
+	Cliente string
+	Imagen  string
+	Filtros string
+}
+
+type NodoHash struct {
+	Llave      int // -1
+	Id_Cliente string
+	Id_Factura string
+}
+
+type NodoBloque struct {
+	Bloque    map[string]string
+	Siguiente *NodoBloque
+	Anterior  *NodoBloque
+}
+
+type NodoBloquePeticion struct {
+	Timestamp string
+	Biller    string
+	Customer  string
+	Payment   string
+}
+
+type RespuestaBloque struct {
+	Id      string
+	Factura string
+}
