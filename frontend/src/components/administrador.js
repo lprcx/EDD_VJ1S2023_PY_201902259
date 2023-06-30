@@ -58,6 +58,7 @@ export const Administrador = () => {
     }
 
     return(
+        <>
         <div className="form-signin1">
             <div className="text-center">
                   <form className="card card-body">
@@ -84,10 +85,18 @@ export const Administrador = () => {
                     <center><button className="w-50 btn btn-outline-primary" onClick={reportes}>Reportes</button></center>
                     <br/>
                     <center><button className="w-50 btn btn-outline-success" onClick={salir}>Salir</button></center>
-                    <p className="mt-5 mb-3 text-muted">EDD 201700918</p>
+                    <p className="mt-5 mb-3 text-muted">EDD 201902259</p>
                     <br/>
                   </form>
             </div>
           </div>
+        <div className="col-4">
+        <img
+        src={`..../public/imagenes/kir.jpg`}
+        alt="kir"
+        className="img-fluid"
+        />
+      </div>
+      </>
     );
 }

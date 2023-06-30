@@ -55,7 +55,7 @@ export const Reportes = () => {
                     <br/>
                     <center><img src={imagen} width="350" height="350" alt='some value' /></center>
                     <br/>
-                    <p className="mt-5 mb-3 text-muted">EDD 201700918</p>
+                    <p className="mt-5 mb-3 text-muted">EDD 201902259</p>
                     <br/>
                   </form>
             </div>
