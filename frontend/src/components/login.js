@@ -4,6 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import background from '../img/kirby.jpg'
 
 export const Login = () => {
+    const [imagen, setImagen] = useState('https://www.pngplay.com/wp-content/uploads/9/Kirby-Transparent-Background.png')
     const [user, setUser] = useState('')
     const [pass, setPass] = useState('')
     
@@ -56,6 +57,9 @@ export const Login = () => {
                         autoFocus/>
                         <br />
                         <button className="w-100 btn btn-lg btn-primary" type="submit">Iniciar Sesion</button>
+                        <br/>
+                        <center><img src={imagen} width="250" height="250" alt='some value' /></center>
+                        <br/>
                         <p className="mt-5 mb-3 text-muted">EDD 201902259</p>
                         <br/>
                     </form>

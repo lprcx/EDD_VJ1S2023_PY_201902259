@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import '../css/administrador.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
+import img from '../img/kirb.jpg'
 
 export const Empleado = () => {
     const salir = (e) => {
@@ -36,6 +37,7 @@ export const Empleado = () => {
     }
 
     return(
+        <>
         <div className="form-signin1">
             <div className="text-center">
                   <form className="card card-body">
@@ -49,10 +51,19 @@ export const Empleado = () => {
                     <br/>
                     <center><button className="w-50 btn btn-outline-success" onClick={salir}>Salir</button></center>
                     <br/>
-                    <p className="mt-5 mb-3 text-muted">EDD 201700918</p>
+                    <p className="mt-5 mb-3 text-muted">EDD 201902259</p>
                     <br/>
                   </form>
             </div>
           </div>
+        <div className="image-container">
+        <img
+        src={img}
+        alt="kir"
+        className="img-fluid"
+        style={{alignSelf: 'center'}}
+        />
+      </div>
+      </>
     );
 }

@@ -3,6 +3,7 @@ import '../css/administrador.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
 
 export const Administrador = () => {
+    const [imagen, setImagen] = useState('https://www.pngplay.com/wp-content/uploads/9/Kirby-Transparent-Free-PNG.png')
     const [mensajes, setMensajes] = useState([]);
     const reportes = (e) => {
         e.preventDefault();
@@ -85,18 +86,14 @@ export const Administrador = () => {
                     <center><button className="w-50 btn btn-outline-primary" onClick={reportes}>Reportes</button></center>
                     <br/>
                     <center><button className="w-50 btn btn-outline-success" onClick={salir}>Salir</button></center>
+                    <br/>
+                    <center><img src={imagen} width="350" height="350" alt='some value' /></center>
+                    <br/>
                     <p className="mt-5 mb-3 text-muted">EDD 201902259</p>
                     <br/>
                   </form>
             </div>
           </div>
-        <div className="col-4">
-        <img
-        src={`..../public/imagenes/kir.jpg`}
-        alt="kir"
-        className="img-fluid"
-        />
-      </div>
       </>
     );
 }

@@ -3,7 +3,7 @@ import '../css/administrador.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
 
 export const Reportes = () => {
-    const [imagen, setImagen] = useState('https://yakurefu.com/wp-content/uploads/2020/02/Chi_by_wallabby.jpg')
+    const [imagen, setImagen] = useState('https://www.pngplay.com/wp-content/uploads/9/Kirby-Transparent-File.png')
     const salir = (e) => {
         e.preventDefault();
         console.log("Listo")
