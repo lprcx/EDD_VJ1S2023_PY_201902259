@@ -1,4 +1,4 @@
-package peticiones
+package Peticiones
 
 type Login struct {
 	Username string
@@ -24,5 +24,17 @@ type RespuestaImagen struct {
 }
 
 type PeticionFiltro struct {
-	Tipo int
+	Tipo          int
+	Nombre_Imagen string
+}
+
+type BloquePeticion struct {
+	Timestamp string
+	Biller    string
+	Customer  string
+	Payment   string
+}
+
+type Empleado struct {
+	IdEmpleado string
 }

@@ -454,3 +454,64 @@ func (m *Matriz) Negativo(nombre_imagen string) {
 	GenerarArchivos.CrearArchivo(archivoCSS)
 	GenerarArchivos.EscribirArchivo(contenidoCSS, archivoCSS)
 }
+
+func (m *Matriz) RotacionDoble() {
+	matrizAux := Matriz{Raiz: &NodoMatriz{PosX: -1, PosY: -1, Color: "Raiz"}}
+	auxFila := m.Raiz.Abajo
+	auxColumna := auxFila.Siguiente
+	for i := 0; i < m.ImageHeight; i++ {
+		for j := 0; j < m.ImageWidth; j++ {
+			if auxColumna != nil {
+				x := m.ImageWidth - 1 - auxColumna.PosX
+				y := m.ImageHeight - 1 - auxColumna.PosY
+				matrizAux.Insertar_Elemento(x, y, auxColumna.Color)
+				auxColumna = auxColumna.Siguiente
+			}
+		}
+		auxFila = auxFila.Abajo
+		if auxFila != nil {
+			auxColumna = auxFila.Siguiente
+		}
+	}
+	m.Raiz = matrizAux.Raiz
+}
+
+func (m *Matriz) RotacionX() {
+	matrizAux := Matriz{Raiz: &NodoMatriz{PosX: -1, PosY: -1, Color: "Raiz"}}
+	auxFila := m.Raiz.Abajo
+	auxColumna := auxFila.Siguiente
+	for i := 0; i < m.ImageHeight; i++ {
+		for j := 0; j < m.ImageWidth; j++ {
+			if auxColumna != nil {
+				x := m.ImageWidth - 1 - auxColumna.PosX
+				matrizAux.Insertar_Elemento(x, auxColumna.PosY, auxColumna.Color)
+				auxColumna = auxColumna.Siguiente
+			}
+		}
+		auxFila = auxFila.Abajo
+		if auxFila != nil {
+			auxColumna = auxFila.Siguiente
+		}
+	}
+	m.Raiz = matrizAux.Raiz
+}
+
+func (m *Matriz) RotacionY() {
+	matrizAux := Matriz{Raiz: &NodoMatriz{PosX: -1, PosY: -1, Color: "Raiz"}}
+	auxFila := m.Raiz.Abajo
+	auxColumna := auxFila.Siguiente
+	for i := 0; i < m.ImageHeight; i++ {
+		for j := 0; j < m.ImageWidth; j++ {
+			if auxColumna != nil {
+				y := m.ImageHeight - 1 - auxColumna.PosY
+				matrizAux.Insertar_Elemento(auxColumna.PosX, y, auxColumna.Color)
+				auxColumna = auxColumna.Siguiente
+			}
+		}
+		auxFila = auxFila.Abajo
+		if auxFila != nil {
+			auxColumna = auxFila.Siguiente
+		}
+	}
+	m.Raiz = matrizAux.Raiz
+}
