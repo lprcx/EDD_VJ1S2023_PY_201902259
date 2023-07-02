@@ -1,0 +1,17 @@
+digraph reportepagos{
+rankdir=UD;
+node[shape = record];
+nodonull2[label="null"];
+nodo0[label="{TimeStamp: 
+, Biller: 5385, Customer: 1111, PreviousHash:0000}"];
+nodo1[label="{TimeStamp: 
+, Biller: 5385, Customer: 1848, PreviousHash:7e987737766de0af76208f6aea87346c5729239e8828bc0477aa0226997eb4ec}"];
+nodo2[label="{TimeStamp: 
+, Biller: 5385, Customer: 2480, PreviousHash:cb508797282df921e5b33e1d5d20527f8de2825c76dcbdbbfcb06bc6fe3bf25a}"];
+nodo3[label="{TimeStamp: 
+, Biller: 5385, Customer: 4168, PreviousHash:af5875f5156093273604b6fa62cf939d90ab55b11db6dd0adbe571ef769d365c}"];
+nodo0->nodo1;
+nodo1->nodo2;
+nodo2->nodo3;
+}odo3->nodonull2;
+}

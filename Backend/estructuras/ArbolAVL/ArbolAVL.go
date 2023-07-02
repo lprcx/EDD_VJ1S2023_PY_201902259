@@ -97,7 +97,7 @@ func (a *Arbol) Graficar() {
 	nombre_archivo := "./Reporte/arbolAVL.dot"
 	nombre_imagen := "./Reporte/arbolAVL.jpg"
 	if a.Raiz != nil {
-		cadena += "digraph arbol{ "
+		cadena += "digraph arbol{\n "
 		cadena += a.retornarValoresArbol(a.Raiz, 0)
 		cadena += "}"
 	}

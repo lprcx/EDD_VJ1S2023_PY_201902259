@@ -9,13 +9,6 @@ type Grafo struct {
 	Principal *NodoMatrizDeAdyacencia
 }
 
-/*
-Empleado 1234 -> 8995 -> 8596 -> 7983
-8995 -> imagen1 -> filtro1 -> imagen8 -> filtro4
-8596 -> imagen2 -> filtro1 - filtro2
-7983 -> imagen3 -> filtro 4
-*/
-
 func (g *Grafo) insertarC(padre string, hijo string, filtro string) { // cliente, imagen
 	nuevoNodo := &NodoMatrizDeAdyacencia{Valor: hijo}
 	if g.Principal != nil && padre == g.Principal.Valor {

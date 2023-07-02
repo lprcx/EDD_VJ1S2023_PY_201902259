@@ -27,6 +27,8 @@ var VerFacturasRealizadas *TablaHash.TablaHash
 var FiltrosColocados string
 var EmpleadoLogeado string
 var GrafosEmpleados map[string]Grafo.Grafo
+var Grafos *Grafo.Grafo
+var Respuestaimagen *Peticiones.RespuestaImagen
 
 func main() {
 	/*INICIAR ESTRUCTURAS*/
@@ -37,6 +39,7 @@ func main() {
 	PedidosCola = &ColaPedidos.Cola{Primero: nil, Longitud: 0}
 	FacturasRealizadas = &Facturas.BlockChain{Bloques_Creados: 0}
 	VerFacturasRealizadas = &TablaHash.TablaHash{Capacidad: 5, Utilizacion: 0}
+	Respuestaimagen = &Peticiones.RespuestaImagen{Imagenbase64: "", Nombre: ""}
 	FiltrosColocados = ""
 	EmpleadoLogeado = ""
 	app := fiber.New()
@@ -90,6 +93,7 @@ func main() {
 	})
 
 	app.Get("/reporte-arbol", func(c *fiber.Ctx) error {
+		ArbolPedidos.Graficar()
 		var imagen Peticiones.RespuestaImagen = Peticiones.RespuestaImagen{Nombre: "Reporte/arbolAVL.jpg"}
 		/*INICIO*/
 		imageBytes, err := ioutil.ReadFile(imagen.Nombre)
@@ -107,6 +111,7 @@ func main() {
 	})
 
 	app.Get("/reporte-grafo", func(c *fiber.Ctx) error {
+		Grafos.Reporte()
 		var imagen Peticiones.RespuestaImagen = Peticiones.RespuestaImagen{Nombre: "Reporte/grafo.jpg"}
 		/*INICIO*/
 		imageBytes, err := ioutil.ReadFile(imagen.Nombre)
@@ -119,20 +124,19 @@ func main() {
 		imagen.Imagenbase64 = "data:image/jpg;base64," + base64.StdEncoding.EncodeToString(imageBytes)
 		return c.JSON(&fiber.Map{
 			"status": 200,
-			"imagen": imagen,
+			"imagen": imagen.Imagenbase64,
 		})
 	})
 
 	app.Get("/reporte-bloque", func(c *fiber.Ctx) error {
-		var imagen Peticiones.RespuestaImagen = Peticiones.RespuestaImagen{Nombre: "Reporte/bloque.jpg"}
-		/*INICIO*/
+		FacturasRealizadas.Graficar()
+		var imagen Peticiones.RespuestaImagen = Peticiones.RespuestaImagen{Nombre: "Reporte/reportepagos.jpg"}
 		imageBytes, err := ioutil.ReadFile(imagen.Nombre)
 		if err != nil {
 			return c.JSON(&fiber.Map{
 				"status": 404,
 			})
 		}
-		// Codifica los bytes de la imagen en base64
 		imagen.Imagenbase64 = "data:image/jpg;base64," + base64.StdEncoding.EncodeToString(imageBytes)
 		return c.JSON(&fiber.Map{
 			"status": 200,
@@ -188,7 +192,6 @@ func main() {
 		var nuevoBloque Peticiones.BloquePeticion
 		c.BodyParser(&nuevoBloque)
 		FacturasRealizadas.InsertarBloque(nuevoBloque.Timestamp, nuevoBloque.Biller, nuevoBloque.Customer, nuevoBloque.Payment)
-		/*Ingresar al grafo, tomar los valores de nuevoBloque.Biller, nuevoBloque.Customer, PedidosCola.Primero.Pedido.Nombre_Imagen,Filtros_colocados */
 		PedidosCola.Descolar()
 		VerFacturasRealizadas.NewTablaHash()
 		FacturasRealizadas.InsertarTabla(VerFacturasRealizadas, EmpleadoLogeado)
