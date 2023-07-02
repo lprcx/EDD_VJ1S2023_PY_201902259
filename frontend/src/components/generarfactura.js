@@ -6,7 +6,7 @@ import moment from 'moment'
 
 // 18:6:5
 export const GenerarFactura = () => {
-    //(DD-MM-YY-::HH:MM:SS)
+    const [imagen, setImagen] = useState('https://static.vecteezy.com/system/resources/previews/000/572/811/original/vector-dollar-sign-money-icon.jpg')
     const fecha = moment().format("DD-MM-yyyy-::hh:mm:ss")
     const idEmpleado = localStorage.getItem("empleado")
     const [cliente, setCliente] = useState('')
@@ -55,7 +55,7 @@ export const GenerarFactura = () => {
         <div className="form-signin1">
             <div className="text-center">
                   <form onSubmit={handleSubmit} className="card card-body">
-                  <h1 className="h3 mb-3 fw-normal">Dashboard Empleado {localStorage.getItem("empleado")}</h1>
+                  <h1 className="h3 mb-3 fw-normal" style={{ color: 'blue' }}>Dashboard Empleado {localStorage.getItem("empleado")}</h1>
                     <label htmlFor="inputEmail" className="visually-hidden">Fecha</label>
                     <input type="text" id="userI" className="form-control" placeholder="Nombre Usuario" disabled
                     value={fecha}  
@@ -77,12 +77,10 @@ export const GenerarFactura = () => {
                     value={pago}  
                     autoFocus/>
                     <br/>
-                    <center><button className="w-50 btn btn-outline-success" type="submit">Generar Pago</button></center>
+                    <center><button className="w-50 btn btn-outline-primary" type="submit">Generar Pago</button></center>
                     <br/>
-                    <center><button className="w-50 btn btn-outline-success" onClick={salir}>Salir</button></center>
-                    <br/>
-                    <p className="mt-5 mb-3 text-muted">EDD 201700918</p>
-                    <br/>
+                    <center><button className="w-50 btn btn btn-outline-danger" onClick={salir}>Salir</button></center>
+                    <img src={imagen} width="50" height="50" alt='some value' />
                   </form>
             </div>
         </div>

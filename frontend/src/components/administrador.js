@@ -63,9 +63,9 @@ export const Administrador = () => {
         <div className="form-signin1">
             <div className="text-center">
                   <form className="card card-body">
-                    <h1 className="h3 mb-3 fw-normal">Administrador</h1>
+                    <h1 style={{ color: 'pink' }}>Administrador</h1>
                     <br/>
-                    <h4 className="h3 mb-3 fw-normal">Cargar Archivos</h4>
+                    <h4 style={{ color: 'skyblue' }}>Cargar Archivos</h4>
                     <br/>
                     <div className="input-group mb-3">
                         <label className="input-group-text">Cargar Pedidos</label>
@@ -83,9 +83,9 @@ export const Administrador = () => {
                         onChange={onChange1}/>
                     </div>
                     <br/>
-                    <center><button className="w-50 btn btn-outline-primary" onClick={reportes}>Reportes</button></center>
+                    <center><button className="w-50 btn btn-outline-warning" onClick={reportes}>Reportes</button></center>
                     <br/>
-                    <center><button className="w-50 btn btn-outline-success" onClick={salir}>Salir</button></center>
+                    <center><button className="w-50 btn btn-outline-info" onClick={salir}>Salir</button></center>
                     <br/>
                     <center><img src={imagen} width="350" height="350" alt='some value' /></center>
                     <br/>

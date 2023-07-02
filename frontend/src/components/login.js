@@ -43,7 +43,7 @@ export const Login = () => {
             <div className="form-signin">
                 <div className="text-center">
                     <form onSubmit={handleSubmit} className="card card-body">
-                        <h1 className="h3 mb-3 fw-normal">Inicio de Sesion EDD Creative</h1>
+                        <h1 className="h3 mb-3 fw-normal" style={{ color: 'blue' }}>Inicio de Sesion EDD Creative</h1>
                         <label htmlFor="inputEmail" className="visually-hidden">Usuario</label>
                         <input type="text" id="userI" className="form-control" placeholder="Nombre Usuario" required
                         onChange={e => setUser(e.target.value)} 
@@ -56,7 +56,7 @@ export const Login = () => {
                         value={pass} 
                         autoFocus/>
                         <br />
-                        <button className="w-100 btn btn-lg btn-primary" type="submit">Iniciar Sesion</button>
+                        <button className="w-100 btn btn-success" type="submit">Iniciar Sesion</button>
                         <br/>
                         <center><img src={imagen} width="250" height="250" alt='some value' /></center>
                         <br/>

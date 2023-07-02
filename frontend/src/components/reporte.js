@@ -43,15 +43,15 @@ export const Reportes = () => {
         <div className="form-signin1">
             <div className="text-center">
                   <form className="card card-body">
-                    <h1 className="h3 mb-3 fw-normal">Reportes Administrador</h1>
+                    <h1 style={{ color: 'pink' }}>Reportes Administrador</h1>
                     <br/>
-                    <center><button className="w-50 btn btn-outline-primary" onClick={reporteGrafo}>Grafo</button></center>
+                    <center><button className="w-50 btn btn-outline-success" onClick={reporteGrafo}>Grafo</button></center>
                     <br/>
-                    <center><button className="w-50 btn btn-outline-primary" onClick={reporteArbol}>Arbol AVL</button></center>
+                    <center><button className="w-50 btn btn-outline-info" onClick={reporteArbol}>Arbol AVL</button></center>
                     <br/>
-                    <center><button className="w-50 btn btn-outline-primary" onClick={reporteBlockchain}>Facturas</button></center>
+                    <center><button className="w-50 btn btn-outline-warning" onClick={reporteBlockchain}>Facturas</button></center>
                     <br/>
-                    <center><button className="w-50 btn btn-outline-success" onClick={salir}>Salir</button></center>
+                    <center><button className="w-50 btn btn-outline-danger" onClick={salir}>Salir</button></center>
                     <br/>
                     <center><img src={imagen} width="350" height="350" alt='some value' /></center>
                     <br/>
