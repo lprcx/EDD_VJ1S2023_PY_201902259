@@ -41,6 +41,7 @@ func main() {
 	EmpleadoLogeado = ""
 	app := fiber.New()
 	app.Use(cors.New())
+	/*LOGIN*/
 	app.Post("/login", func(c *fiber.Ctx) error {
 		var usuario Peticiones.Login
 		c.BodyParser(&usuario)
@@ -143,31 +144,34 @@ func main() {
 		var tipo Peticiones.PeticionFiltro
 		c.BodyParser(&tipo)
 		fmt.Println(tipo)
-		tipo.Nombre_Imagen = PedidosCola.Primero.Pedido.Nombre_Imagen
+		tipo.NombreImagen = PedidosCola.Primero.Pedido.Nombre_Imagen
+		fmt.Println(tipo)
+		fmt.Println(tipo.Tipo)
+		fmt.Println(tipo.NombreImagen)
 		switch tipo.Tipo {
 		case 1:
-			MatrizFiltro.LeerInicial("csv/"+tipo.Nombre_Imagen+"/inicial.csv", tipo.Nombre_Imagen)
-			MatrizFiltro.Negativo(tipo.Nombre_Imagen + "Negativo")
+			MatrizFiltro.LeerInicial("csv/"+tipo.NombreImagen+"/inicial.csv", tipo.NombreImagen)
+			MatrizFiltro.Negativo(tipo.NombreImagen + "Negativo")
 			FiltrosColocados += "Negativo, "
 		case 2:
-			MatrizFiltro.LeerInicial("csv/"+tipo.Nombre_Imagen+"/inicial.csv", tipo.Nombre_Imagen)
-			MatrizFiltro.EscalaGrises(tipo.Nombre_Imagen + "Grises")
-			FiltrosColocados += " Escala Grises, "
+			MatrizFiltro.LeerInicial("csv/"+tipo.NombreImagen+"/inicial.csv", tipo.NombreImagen)
+			MatrizFiltro.EscalaGrises(tipo.NombreImagen + "Grises")
+			FiltrosColocados += "Grises, "
 		case 3:
-			MatrizFiltro.LeerInicial("csv/"+tipo.Nombre_Imagen+"/inicial.csv", tipo.Nombre_Imagen)
+			MatrizFiltro.LeerInicial("csv/"+tipo.NombreImagen+"/inicial.csv", tipo.NombreImagen)
 			MatrizFiltro.RotacionX()
-			MatrizFiltro.GenerarImagen(tipo.Nombre_Imagen + "RX")
-			FiltrosColocados += "Rotacion X, "
+			MatrizFiltro.GenerarImagen(tipo.NombreImagen + "RX")
+			FiltrosColocados += "Eje X, "
 		case 4:
-			MatrizFiltro.LeerInicial("csv/"+tipo.Nombre_Imagen+"/inicial.csv", tipo.Nombre_Imagen)
+			MatrizFiltro.LeerInicial("csv/"+tipo.NombreImagen+"/inicial.csv", tipo.NombreImagen)
 			MatrizFiltro.RotacionY()
-			MatrizFiltro.GenerarImagen(tipo.Nombre_Imagen + "RY")
-			FiltrosColocados += "Rotacion Y, "
+			MatrizFiltro.GenerarImagen(tipo.NombreImagen + "RY")
+			FiltrosColocados += "Eje Y, "
 		case 5:
-			MatrizFiltro.LeerInicial("csv/"+tipo.Nombre_Imagen+"/inicial.csv", tipo.Nombre_Imagen)
+			MatrizFiltro.LeerInicial("csv/"+tipo.NombreImagen+"/inicial.csv", tipo.NombreImagen)
 			MatrizFiltro.RotacionDoble()
-			MatrizFiltro.GenerarImagen(tipo.Nombre_Imagen + "RDoble")
-			FiltrosColocados += "Doble Rotacion,  "
+			MatrizFiltro.GenerarImagen(tipo.NombreImagen + "RDoble")
+			FiltrosColocados += "Doble,  "
 		}
 		return c.JSON(&fiber.Map{
 			"status": 200,

@@ -26,6 +26,7 @@ export const Empleado = () => {
         })
         .then(response => response.json())
         .then(data => validar(data));
+        window.open("/factura","_self")
     }
     
     const verFacturas = async(e) => {
@@ -34,6 +35,7 @@ export const Empleado = () => {
         })
         .then(response => response.json())
         .then(data => validar(data));
+        window.open("/verfactura","_self")
     }
 
     return(

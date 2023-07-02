@@ -206,7 +206,7 @@ func (m *Matriz) LeerArchivo(ruta string) {
 	//listaAux := &ListaCircular{Inicio: nil, Longitud: 0}
 	file, err := os.Open(ruta)
 	if err != nil {
-		fmt.Println("No pude abrir el archivo")
+		fmt.Println("No pude abrir el archivo1")
 		return
 	}
 	defer file.Close()
@@ -237,8 +237,9 @@ func (m *Matriz) LeerArchivo(ruta string) {
 
 func (m *Matriz) LeerInicial(ruta string, imagen string) {
 	file, err := os.Open(ruta)
+	fmt.Println(ruta)
 	if err != nil {
-		fmt.Println("No pude abrir el archivo")
+		fmt.Println("No pude abrir el archivo2")
 		return
 	}
 	defer file.Close()
@@ -270,7 +271,7 @@ func (m *Matriz) LeerInicial(ruta string, imagen string) {
 func (m *Matriz) leerConfig(ruta string) {
 	file, err := os.Open(ruta)
 	if err != nil {
-		fmt.Println("No pude abrir el archivo")
+		fmt.Println("No pude abrir el archivo3")
 		return
 	}
 	defer file.Close()
@@ -418,21 +419,9 @@ func (m *Matriz) Negativo(nombre_imagen string) {
 					r, _ := strconv.Atoi(colores[0])
 					b, _ := strconv.Atoi(colores[1])
 					g, _ := strconv.Atoi(colores[2])
-					if r >= 255 {
-						r = 0
-					} else {
-						r = 255 - r
-					}
-					if g >= 255 {
-						g = 0
-					} else {
-						g = 255 - g
-					}
-					if b >= 255 {
-						b = 0
-					} else {
-						b = 255 - b
-					}
+					r = 255 - r
+					g = 255 - g
+					b = 255 - b
 					auxColumna.Color = strconv.Itoa(r) + "," + strconv.Itoa(g) + "," + strconv.Itoa(b)
 					/**/
 					contenidoCSS += ".pixel:nth-child(" + strconv.Itoa(x) + ") { background: rgb(" + auxColumna.Color + "); }\n"
@@ -459,6 +448,7 @@ func (m *Matriz) RotacionDoble() {
 	matrizAux := Matriz{Raiz: &NodoMatriz{PosX: -1, PosY: -1, Color: "Raiz"}}
 	auxFila := m.Raiz.Abajo
 	auxColumna := auxFila.Siguiente
+	//* Nueva Version*//
 	for i := 0; i < m.ImageHeight; i++ {
 		for j := 0; j < m.ImageWidth; j++ {
 			if auxColumna != nil {
@@ -480,6 +470,7 @@ func (m *Matriz) RotacionX() {
 	matrizAux := Matriz{Raiz: &NodoMatriz{PosX: -1, PosY: -1, Color: "Raiz"}}
 	auxFila := m.Raiz.Abajo
 	auxColumna := auxFila.Siguiente
+	//* Nueva Version*//
 	for i := 0; i < m.ImageHeight; i++ {
 		for j := 0; j < m.ImageWidth; j++ {
 			if auxColumna != nil {
@@ -500,6 +491,7 @@ func (m *Matriz) RotacionY() {
 	matrizAux := Matriz{Raiz: &NodoMatriz{PosX: -1, PosY: -1, Color: "Raiz"}}
 	auxFila := m.Raiz.Abajo
 	auxColumna := auxFila.Siguiente
+	//* Nueva Version*//
 	for i := 0; i < m.ImageHeight; i++ {
 		for j := 0; j < m.ImageWidth; j++ {
 			if auxColumna != nil {

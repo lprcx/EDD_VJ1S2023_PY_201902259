@@ -2,51 +2,51 @@
 	"pedidos": [
 		{
 			"id_cliente": 4983, 
-			"imagen": "bmo " 
+			"imagen": "bmo" 
 		},
 		{
 			"id_cliente": 1111, 
-			"imagen": "ave " 
+			"imagen": "mario" 
 		},
 		{
 			"id_cliente": 5407, 
-			"imagen": "letra_r " 
+			"imagen": "letra_r" 
 		},
 		{
 			"id_cliente": 5030, 
-			"imagen": "mario " 
+			"imagen": "mario" 
 		},
 		{
 			"id_cliente": 1848, 
-			"imagen": "ironman " 
+			"imagen": "ironman" 
 		},
 		{
 			"id_cliente": 5313, 
-			"imagen": "hulk " 
+			"imagen": "hulk" 
 		},
 		{
 			"id_cliente": 5965, 
-			"imagen": "hora_de_aventura " 
+			"imagen": "hora_de_aventura" 
 		},
 		{
 			"id_cliente": 4168, 
-			"imagen": "deadpool " 
+			"imagen": "deadpool" 
 		},
 		{
 			"id_cliente": 2480, 
-			"imagen": "corrin " 
+			"imagen": "corrin" 
 		},
 		{
 			"id_cliente": 6344, 
-			"imagen": "bmo " 
+			"imagen": "bmo" 
 		},
 		{
 			"id_cliente": 6744, 
-			"imagen": "ave " 
+			"imagen": "ave" 
 		},
 		{
 			"id_cliente": 4575, 
-			"imagen": "letra_r " 
+			"imagen": "letra_r" 
 		}
 	]
 }

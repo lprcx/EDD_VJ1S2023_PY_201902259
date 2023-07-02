@@ -28,7 +28,7 @@ func (c *Cola) Encolar(idCliente int, nombreimagen string) {
 
 func (c *Cola) Descolar() {
 	if c.Longitud == 0 {
-		fmt.Println("No hay pedidos en la cola")
+		fmt.Println("No hay pedidos pendientes en la cola")
 	} else {
 		c.Primero = c.Primero.Siguiente
 		c.Longitud--

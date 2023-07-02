@@ -11,7 +11,7 @@ type Archivo struct {
 
 type Pedido struct {
 	Id_Cliente    int    `json:"id_cliente"`
-	Nombre_Imagen string `json:"nombre_imagen"`
+	Nombre_Imagen string `json:"imagen"`
 }
 
 type ArbolPeticion struct {
@@ -24,8 +24,8 @@ type RespuestaImagen struct {
 }
 
 type PeticionFiltro struct {
-	Tipo          int
-	Nombre_Imagen string
+	Tipo         int
+	NombreImagen string
 }
 
 type BloquePeticion struct {
